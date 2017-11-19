@@ -1,0 +1,13 @@
+flasgger==0.6.6
+Flask==0.12.2
+Flask-Login==0.2.11
+Flask-Migrate==2.1.0
+Flask-OpenID==1.2.5
+Flask-RESTful==0.3.6
+Flask-SQLAlchemy==2.1
+Flask-WTF==0.14.2
+Jinja2==2.9.6
+python-openid==2.2.5
+SQLAlchemy==1.1.13
+Werkzeug==0.12.2
+WTForms==2.1
