@@ -164,7 +164,6 @@ class Username(Resource):
         return {'username': username}, 200
 
 
-
 api.add_resource(TodoList, '/todos')
 api.add_resource(Todo, '/todos/<todo_id>')
 api.add_resource(Username, '/username/<username>')
