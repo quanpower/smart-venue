@@ -1,5 +1,5 @@
 
---用户
+-- 用户
 drop table if exists user;
 CREATE TABLE USER
     (
@@ -12,10 +12,13 @@ CREATE TABLE USER
         address VARCHAR(256),
         user_type INT NOT NULL,
         sex INT,
+	age INT,
         nation VARCHAR(32),
         birthday VARCHAR(10),
-        create_time VARCHAR(20) NOT NULL,
+        create_time VARCHAR(20),
         update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         state VARCHAR(3) NOT NULL,
         PRIMARY KEY (id)
     )
@@ -39,9 +42,10 @@ CREATE TABLE SYS_USER
         sex INT,
         nation VARCHAR(32),
         birthday VARCHAR(10),
-        create_time VARCHAR(20) NOT NULL,
-        create_user VARCHAR(20) NOT NULL,
+        create_time VARCHAR(20),
         update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         org_id INT,
         state VARCHAR(3) NOT NULL,
         PRIMARY KEY (id)
@@ -61,11 +65,12 @@ CREATE TABLE sys_org
         address VARCHAR(256),
         state VARCHAR(3),
         create_time VARCHAR(20),
-        create_user INT,
         update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         PRIMARY KEY (id)
     )
-    ENGINE=InnoDB DEFAULT CHARSET=utf8
+    ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- 角色
@@ -75,11 +80,13 @@ CREATE TABLE sys_role
         id INT NOT NULL AUTO_INCREMENT,
         role_name VARCHAR(60) NOT NULL,
         description VARCHAR(512),
-        create_time VARCHAR(20) NOT NULL,
-        create_user INT,
+        create_time VARCHAR(20),
+        update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         PRIMARY KEY (id)
     )
-    ENGINE=InnoDB DEFAULT CHARSET=utf8
+    ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- 员工角色
@@ -89,7 +96,9 @@ CREATE TABLE sys_user_role
         sys_user_id INT NOT NULL,
         sys_role_id INT NOT NULL,
         create_time VARCHAR(20),
-        create_user INT,
+        update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         PRIMARY KEY (sys_user_id, sys_role_id)
     )
     ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -104,12 +113,15 @@ CREATE TABLE sys_menu
         parent_id INT,
         url VARCHAR(300),
         icon_name VARCHAR(100),
+        component VARBINARY(100),
         sort_index INT,
         create_time VARCHAR(20),
-        create_user INT,
+        update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         PRIMARY KEY (id)
     )
-    ENGINE=InnoDB DEFAULT CHARSET=utf8
+    ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- 角色菜单（权限还没想好怎么控制，暂时是通过菜单控制内部员工权限）
@@ -118,8 +130,11 @@ CREATE TABLE sys_role_menu
     (
         role_id INT NOT NULL,
         menu_id INT NOT NULL,
+        menu_seg VARCHAR(128),
         create_time VARCHAR(20),
-        create_user INT,
+        update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         PRIMARY KEY (role_id, menu_id)
     )
     ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -136,8 +151,10 @@ CREATE TABLE sys_grounds
         picture VARCHAR(256),
         org_id INT NOT NULL,
         type INT NOT NULL,
-        create_time VARCHAR(20) NOT NULL,
-        create_user INT,
+        create_time VARCHAR(20),
+        update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         state VARCHAR(3) NOT NULL,
         PRIMARY KEY (id)
     )
@@ -159,10 +176,13 @@ CREATE TABLE booking
         start_time VARCHAR(5),
         end_time VARCHAR(5),
         create_time VARCHAR(20),
+        update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         state VARCHAR(3),
         PRIMARY KEY (id)
     )
-    ENGINE=InnoDB DEFAULT CHARSET=utf8
+    ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- 预约场地
@@ -172,8 +192,10 @@ CREATE TABLE booking_ground
         booking_id INT NOT NULL,
         ground_id INT NOT NULL,
         booking_date VARCHAR(10),
-        create_user INT,
         create_time VARCHAR(20),
+        update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         PRIMARY KEY (booking_id, ground_id)
     )
     ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -187,6 +209,10 @@ CREATE TABLE ground_occupy
         ground_id INT NOT NULL,
         DATE VARCHAR(10) NOT NULL,
         occupy INT NOT NULL,
+        create_time VARCHAR(20),
+        update_time VARCHAR(20),
+        created_by INT,
+        changed_by INT,
         PRIMARY KEY (id)
     )
     ENGINE=InnoDB DEFAULT CHARSET=utf8;
