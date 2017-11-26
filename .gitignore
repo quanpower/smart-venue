@@ -69,3 +69,16 @@ venv
 .idea
 .idea/
 migrations/
+
+=========================
+# front， react
+
+# dependencies
+front/node_modules
+
+# production
+front/dist
+
+# misc
+front/.DS_Store
+front/npm-debug.log* 
