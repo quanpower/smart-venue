@@ -1,9 +1,10 @@
 Smart-venue
 ======
 smart-venue based on flask & react.
+
 python3.5
 
-
+Using:Flask Blueprint,Flask-migrate,Flask-SQLAlchemy,Flask-Login,Flask-Mail,Flask-WTF,Flask-Bootstrap,flask-cli(click),
 
 
 1.Set .env
