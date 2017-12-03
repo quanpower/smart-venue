@@ -68,7 +68,8 @@ venv
 #IDEA
 .idea
 .idea/
-migrations/
+
+#migrations/
 
 =========================
 # front， react
