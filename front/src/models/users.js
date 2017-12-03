@@ -20,7 +20,7 @@ export default {
     } 
   },
   effects: {
-    *fetch( {query: {currentPage}}, { call, put }) {
+    *fetch({currentPage}, { call, put }) {
       yield put({
         type: 'query',
         loading: true,
@@ -38,5 +38,16 @@ export default {
       })
     }
   },
-  subscriptions: {},
+  subscriptions: {
+    setup({ dispatch, history }) {
+      history.listen(({ pathname }) => {
+        if (pathname === '/system/users') {
+          dispatch({
+            type: 'fetch',
+            currentPage: 1,
+          });
+        }
+      });
+    }
+  },
 };

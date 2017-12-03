@@ -10,7 +10,6 @@ const confirm = Modal.confirm;
 
 @connect(state => ({
   data: state.roles.list,
-  loading: state.roles.loading,
   total: state.roles.total,
   currentPage: state.roles.currentPage,
 }))
@@ -45,15 +44,6 @@ export default class Roles extends PureComponent {
         ),
       }],
     }
-  }
-
-  componentDidMount() {
-    this.props.dispatch({
-      type: 'roles/fetch',
-      query: {
-        currentPage: 1
-      }
-    });
   }
 
   pageChangeHandler(currentPage) {
@@ -125,7 +115,6 @@ export default class Roles extends PureComponent {
               size="small"
               columns={this.state.columns} 
               dataSource={this.props.data} 
-              loading={this.props.loading}
               pagination={false}
             />
             <Pagination

@@ -11,6 +11,9 @@ import Users from './routes/Users/Users';
 import Roles from './routes/Role/Roles';
 import Menus from './routes/Menu/Menus';
 
+import Account from './routes/Account/Account';
+import ChangePassword from './routes/Account/ChangePassword';
+
 const data = [{
   component: BasicLayout,
   layout: 'BasicLayout',
@@ -47,33 +50,23 @@ const data = [{
     //   path: 'test',
     //   component: Test1, 
     // }
-  ]             
-  }]
-}, 
-{
-  component: UserLayout,
-  layout: 'UserLayout',
-  name: '登录',
-  children: [{
-    name: '帐户',
+    ]
+  },{
+    name: '用户中心',
     icon: 'user',
-    path: 'user',
+    path: 'account',
     children: [{
-      name: '登录',
-      path: 'login',
-      component: Login,
+      name: '个人信息',
+      path: 'info',
+      component: Account,
     }, {
-      name: '注册',
-      path: 'register',
-      component: Register,
-    }, {
-      name: '注册结果',
-      path: 'register-result',
-      component: RegisterResult,
+      name: '修改密码',
+      path: 'changePassword',
+      component: ChangePassword,
     }],
-  }],
-}
-];
+  }]
+  
+}];
 
 export function getNavData() {
   return data;

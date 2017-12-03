@@ -18,7 +18,7 @@ export default class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.login.status === 'ok') {
+    if (nextProps.login.isLogin === 'ok') {
       this.props.dispatch(routerRedux.push('/'));
     }
   }
@@ -52,7 +52,7 @@ export default class Login extends Component {
       (err, values) => {
         if (!err) {
           this.props.dispatch({
-            type: `login/${type}Submit`,
+            type: 'login/auth',
             payload: values,
           });
         }
@@ -72,7 +72,6 @@ export default class Login extends Component {
   }
 
   render() {
-    console.info(this.props)
     const { form, login } = this.props;
     const { getFieldDecorator } = form;
     const { count, type } = this.state;
@@ -82,13 +81,12 @@ export default class Login extends Component {
           <Tabs animated={false} className={styles.tabs} activeKey={type} onChange={this.onSwitch}>
             <TabPane tab="账户密码登录" key="account">
               {
-                login.status === 'error' &&
-                login.type === 'account' &&
+                login.isLogin === 'error' &&
                 login.submitting === false &&
                 this.renderMessage('账户或密码错误')
               }
               <FormItem>
-                {getFieldDecorator('userName', {
+                {getFieldDecorator('username', {
                   rules: [{
                     required: type === 'account', message: '请输入账户名！',
                   }],
@@ -117,8 +115,7 @@ export default class Login extends Component {
             </TabPane>
             <TabPane tab="手机号登录" key="mobile">
               {
-                login.status === 'error' &&
-                login.type === 'mobile' &&
+                login.isLogin === 'error' &&
                 login.submitting === false &&
                 this.renderMessage('验证码错误')
               }

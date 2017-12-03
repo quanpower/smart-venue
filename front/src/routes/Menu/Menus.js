@@ -11,7 +11,6 @@ const TreeNode = Tree.TreeNode;
 
 @connect(state => ({
   data: state.menus.list,
-  loading: state.menus.loading,
 }))
 export default class Roles extends PureComponent {
 
@@ -53,12 +52,6 @@ export default class Roles extends PureComponent {
         ),
       }],
     }
-  }
-
-  componentDidMount() {
-    this.props.dispatch({
-      type: 'menus/fetch',
-    });
   }
 
   add() {
@@ -138,7 +131,6 @@ export default class Roles extends PureComponent {
                   size="small"
                   columns={this.state.columns} 
                   dataSource={this.props.data} 
-                  loading={this.props.loading}
                   pagination={true}
                 />
               </Card>

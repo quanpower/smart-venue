@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Layout, Menu, Icon, Avatar, Dropdown, Tag, message, Spin } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
-import { Link, Route, Redirect, Switch } from 'dva/router';
+import { Link, Route, Redirect, Switch, routerRedux } from 'dva/router';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import { ContainerQuery } from 'react-container-query';
@@ -83,6 +83,10 @@ class BasicLayout extends React.PureComponent {
       this.props.dispatch({
         type: 'login/logout',
       });
+    } else if (key === 'user') {
+      this.props.dispatch({
+        type: 'login/account',
+      })
     }
   }
   getMenuData = (data, parentPath) => {
@@ -242,8 +246,8 @@ class BasicLayout extends React.PureComponent {
 
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
-        <Menu.Item disabled><Icon type="user" />个人中心</Menu.Item>
-        <Menu.Item disabled><Icon type="setting" />设置</Menu.Item>
+        <Menu.Item key="user"><Icon type="user"/>个人中心</Menu.Item>
+        <Menu.Item key="setting"><Icon type="setting" />设置</Menu.Item>
         <Menu.Divider />
         <Menu.Item key="logout"><Icon type="logout" />退出登录</Menu.Item>
       </Menu>
@@ -332,11 +336,11 @@ class BasicLayout extends React.PureComponent {
                   emptyImage="https://gw.alipayobjects.com/zos/rmsportal/HsIsxMZiWKrNUavQUXqx.svg"
                 />
               </NoticeIcon>
-              {currentUser.name ? (
+              {currentUser.username ? (
                 <Dropdown overlay={menu}>
                   <span className={`${styles.action} ${styles.account}`}>
-                    <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
-                    {currentUser.name}
+                    <Avatar size="small" className={styles.avatar} />
+                    {currentUser.username}
                   </span>
                 </Dropdown>
               ) : <Spin size="small" style={{ marginLeft: 8 }} />}
@@ -394,7 +398,7 @@ class BasicLayout extends React.PureComponent {
 }
 
 export default connect(state => ({
-  currentUser: state.user.currentUser,
+  currentUser: state.login.account,
   collapsed: state.global.collapsed,
   fetchingNotices: state.global.fetchingNotices,
   notices: state.global.notices,
