@@ -7,6 +7,44 @@ import { getNotices } from './mock/notices';
 const noProxy = process.env.NO_PROXY === 'true';
 
 const proxy = {
+
+    // login, register
+    'POST /api/login/token': (req, res) => {
+        const {username, password} = req.body;
+        if (username === 'admin' && password === 'admin') {
+            res.send({
+                user: {
+                    username,
+                    ability: 1,
+                    userId: 1,
+                    email: 'admin@qq.com'
+                },
+                access_token: "123123123",
+                status: 'success'
+            });
+        } else {
+            res.send({status: 'fail'});
+        }
+    },
+
+    // account
+    'GET /api/account/1': (req, res) => {
+        const {userid} = req.body;
+        res.send({
+                id: 1,
+                user_account: 'admin',
+                user_name: '小强',
+                email: 'xiaoqiang@qq.com',
+                phone: '13812731211',
+                address: 'china',
+                user_type: "1",
+                sex: 'm',
+                birthday: '1992-10-10'
+        });
+    },
+
+
+
     // GET POST 可省略, 支持值为 Object 和 Array
     'GET /api/users': mockjs.mock({
          // 属性 data 的值是一个数组，其中含有 1 到 24 个元素
@@ -99,7 +137,8 @@ const proxy = {
         sort_index: 2
     }],
 
-    'GET /api/getMenusByRoleId': (req, res) => {
+    'POST /api/menu/getMenusByRoleId': (req, res) => {
+        const { roleId } = req.body;
         res.send([{
             id: 1,
             name: '系统管理',
@@ -126,8 +165,6 @@ const proxy = {
             sort_index: 2
         }]);
     },
-
-
 
 
     // 支持值为 Object 和 Array
@@ -161,12 +198,14 @@ const proxy = {
     }),
     'POST /api/login/account': (req, res) => {
         const { password, userName } = req.body;
-        res.send({ status: password === '888888' && userName === 'admin' ? 'ok' : 'error', type: 'account' });
+        res.send({status: 'ok', type: 'accout'});
+        // res.send({ status: password === 'admin' && userName === 'admin' ? 'ok' : 'error', type: 'account' });
     },
     'POST /api/login/mobile': (req, res) => {
         res.send({ status: 'ok', type: 'mobile' });
     },
     'POST /api/register': (req, res) => {
+        // console.info(req.body)
         res.send({ status: 'ok' });
     },
     'GET /api/notices': getNotices,

@@ -7,6 +7,27 @@ import GlobalFooter from 'ant-design-pro/lib/GlobalFooter';
 import styles from './UserLayout.less';
 import { getRouteData } from '../utils/utils';
 
+import Login from '../routes/User/Login';
+import Register from '../routes/User/Register';
+import RegisterResult from '../routes/User/RegisterResult';
+
+const items = [{
+  name: '登录',
+  path: '/user/login',
+  component: Login,
+  exact: true,
+}, {
+  name: '注册',
+  path: '/user/register',
+  component: Register,
+  exact: true,
+}, {
+  name: '注册结果',
+  path: '/user/register-result',
+  component: RegisterResult,
+  exact: true,
+}];
+
 const links = [{
   title: '帮助',
   href: '',
@@ -32,7 +53,8 @@ class UserLayout extends React.PureComponent {
     const { location } = this.props;
     const { pathname } = location;
     let title = 'smart-venue';
-    getRouteData('UserLayout').forEach((item) => {
+    // getRouteData('UserLayout').forEach((item) => {
+    items.forEach((item) => {
       if (item.path === pathname) {
         title = `${item.name} - smart-venue`;
       }
@@ -53,7 +75,8 @@ class UserLayout extends React.PureComponent {
             <p className={styles.desc}>smart-venue 智能体育馆</p>
           </div>
           {
-            getRouteData('UserLayout').map(item =>
+            // getRouteData('UserLayout').map(item =>
+            items.map(item =>
               (
                 <Route
                   exact={item.exact}

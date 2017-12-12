@@ -22,7 +22,13 @@ export default class Users extends PureComponent {
       type: "list",
       record: null,
       showModal: false,
-      roles: [],
+      roles: [{
+        "id": 1,
+        "name": "admin"
+      },{
+        "id": 2,
+        "name": "user"
+      }],
       columns: [{
         title: 'user_account',
         dataIndex: 'user_account',
@@ -69,24 +75,6 @@ export default class Users extends PureComponent {
         ),
       }]
     }
-  }
-  
-  componentDidMount() {
-    this.props.dispatch({
-      type: 'users/fetch',
-      query: {
-        currentPage: 1
-      }
-    });
-    this.setState({
-      roles: [{
-        "id": 1,
-        "name": "admin"
-      },{
-        "id": 2,
-        "name": "user"
-      }]
-    });
   }
 
   pageChangeHandler(currentPage) {
