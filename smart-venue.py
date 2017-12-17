@@ -15,7 +15,8 @@ import sys
 import click
 from flask_migrate import Migrate, upgrade
 from app import create_app, db
-from app.models import User, Follow, Role, Permission, Post, Comment
+from app.models import Permission, Role, Follow, User, AnonymousUser, Post, Comment,\
+    NormalUser, SysUser, SysOrg, SysRole, SysMenu, SysGrounds, SysRoleMenu, Booking, BookingGround, GroundOccupy
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -27,8 +28,11 @@ migrate = Migrate(app, db)
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(db=db, User=User, Follow=Follow, Role=Role,
-                Permission=Permission, Post=Post, Comment=Comment)
+    return dict(db=db, Permission=Permission, Role=Role, Follow=Follow, User=User, AnonymousUser=AnonymousUser,
+                Post=Post, Comment=Comment,
+                NormalUser=NormalUser, SysUser=SysUser, SysRole=SysRole, SysRoleMenu=SysRoleMenu,
+                SysOrg=SysOrg, SysMenu=SysMenu, SysGrounds=SysGrounds, Booking=Booking,
+                BookingGround=BookingGround, GroundOccupy=GroundOccupy)
 
 
 @app.cli.command()
