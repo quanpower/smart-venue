@@ -34,11 +34,21 @@ export default class AddAndEdit extends PureComponent {
 
   render() {
     const { getFieldDecorator, getFieldValue } = this.props.form;
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 6 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 14 },
+      },
+    };
     const {role} = this.props;
-    console.info(role)
+    // console.info(role);
     return (
       <Modal
-        title="添加用户"
+        title="添加角色"
         visible={true}
         onOk={this.handleOk}
         onCancel={this.handleCancel}
@@ -48,6 +58,7 @@ export default class AddAndEdit extends PureComponent {
           hideRequiredMark
         >
           <FormItem
+            {...formItemLayout}
             label="角色名称"
           >
             {getFieldDecorator('role_name', {
@@ -60,6 +71,7 @@ export default class AddAndEdit extends PureComponent {
               )}
           </FormItem>
           <FormItem
+            {...formItemLayout}
             label="描述"
           >
             {getFieldDecorator('description', {

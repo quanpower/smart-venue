@@ -1,7 +1,7 @@
 import BasicLayout from './layouts/BasicLayout';
 import UserLayout from './layouts/UserLayout';
 
-import Test1 from './routes/Test/Test1';
+import Ground from './routes/Ground/Ground';
 
 import Login from './routes/User/Login';
 import Register from './routes/User/Register';
@@ -13,6 +13,7 @@ import Menus from './routes/Menu/Menus';
 
 import Account from './routes/Account/Account';
 import ChangePassword from './routes/Account/ChangePassword';
+import Test from './routes/Account/Test';
 
 const data = [{
   component: BasicLayout,
@@ -20,13 +21,13 @@ const data = [{
   name: '首页', // for breadcrumb
   path: '',
   children: [{
-    name: '测试',             // 页面名称，会展示在菜单栏中
+    name: '业务管理',             // 页面名称，会展示在菜单栏中
     icon: 'table',              // 页面图标，会展示在菜单栏中
-    path: 'test',           // 匹配的路由
+    path: 'business',           // 匹配的路由
     children: [{
-      name: '测试一',             // 页面名称，会展示在菜单栏中
-      path: 'test1', 
-      component: Test1, 
+      name: '场地管理',             // 页面名称，会展示在菜单栏中
+      path: 'grounds', 
+      component: Ground, 
     }]             
   },{
     name: '系统管理',             // 页面名称，会展示在菜单栏中
@@ -44,13 +45,7 @@ const data = [{
       name: '菜单管理',             // 页面名称，会展示在菜单栏中
       path: 'menus', 
       component: Menus, 
-    }, 
-    // {
-    //   name: '场地管理',
-    //   path: 'test',
-    //   component: Test1, 
-    // }
-    ]
+    }]
   },{
     name: '用户中心',
     icon: 'user',

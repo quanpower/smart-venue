@@ -47,3 +47,15 @@ export function fetchByRole(roleId) {
         body: {roleId}
     });
 }
+
+// ground
+export function groundList() {
+    return request('/api/grounds');
+}
+
+export function getPrice(groundId) {
+    return request('/api/grounds/getPrice', {
+        method: 'GET',
+        body: {groundId}
+    });
+}

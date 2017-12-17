@@ -70,8 +70,7 @@ const proxy = {
         }]
     }),
 
-    'GET /api/menus': 
-    [{
+    'GET /api/menus': [{
         id: 1,
         name: '系统管理',
         parent_id: "0",
@@ -165,6 +164,27 @@ const proxy = {
             sort_index: 2
         }]);
     },
+
+    'GET /api/grounds': mockjs.mock({
+        'data|1-30': [{
+            // 属性 id 是一个自增数，起始值为 1，每次增 1
+            'id|+1': 1,
+            'name|+1': 1,
+            description: '描述场地',
+            config: '场地配置说明',
+            picture: 'www.baidu.com',
+            'type|1': ['1', '2'],
+            'status|1': ['true', 'false'],
+        }]
+    }),
+
+    'GET /api/grounds/getPrice': [
+        { time: '7', price: '20' }, { time: '8', price: 20 }, { time: 9, price: 20 },
+        { time: '10', price: '20' }, { time: '11', price: 20 }, { time: 12, price: 20 }, 
+        { time: '13', price: '30' }, { time: '14', price: 30 }, { time: 15, price: 30 }, 
+        { time: '16', price: '30' }, { time: '17', price: 30 }, { time: 18, price: 30 }, 
+        { time: '19', price: '30' }, { time: '20', price: 30 }, { time: 21, price: 30 }, { time: 22, price: 30 }, 
+    ],
 
 
     // 支持值为 Object 和 Array
