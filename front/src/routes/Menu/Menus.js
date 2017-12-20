@@ -10,7 +10,7 @@ const confirm = Modal.confirm;
 const TreeNode = Tree.TreeNode;
 
 @connect(state => ({
-  data: state.menus.list,
+  menus: state.menus.list,
 }))
 export default class Roles extends PureComponent {
 
@@ -54,6 +54,13 @@ export default class Roles extends PureComponent {
     }
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   console.info(nextProps.data)
+  //   this.setState({
+  //     menus: nextProps.data,
+  //   })
+  // }
+
   add() {
     this.setState({
       showModal: true,
@@ -95,7 +102,7 @@ export default class Roles extends PureComponent {
   }
 
   render() {
-    const treeData = toTreeData(this.props.data);
+    const treeData = toTreeData(this.props.menus);
 
     const loop = data => data.map((item) => {
       if (item.children.length > 0) {
@@ -109,40 +116,44 @@ export default class Roles extends PureComponent {
     });
 
     return (
-      <div>
-        <PageHeaderLayout />
-        <Card bordered={true}>
-          <Row>
-            <Col span={6}>
-              <Card bordered={false}>
-                <Tree
-                  defaultExpandAll={true}
-                  autoExpandParent={true}
-                >
-                  {loop(treeData)}
-                </Tree>
+        <div>
+          { this.props.menus.length > 0 &&
+            <div>
+              <PageHeaderLayout />
+              <Card bordered={true}>
+                <Row>
+                  <Col span={6}>
+                    <Card bordered={false}>
+                      <Tree
+                        defaultExpandAll={true}
+                        autoExpandParent={true}
+                      >
+                        {loop(treeData)}
+                      </Tree>
+                    </Card>
+                  </Col>
+                  <Col span={18}>
+                      <Card bordered={false}>
+                      <Button type="primary" onClick={this.add.bind(this)}>添加目录</Button>
+                      <Table
+                        style={{marginTop: 10}}
+                        size="small"
+                        columns={this.state.columns} 
+                        dataSource={this.props.menus} 
+                        pagination={true}
+                      />
+                    </Card>
+                  </Col>
+                </Row>
               </Card>
-            </Col>
-            <Col span={18}>
-                <Card bordered={false}>
-                <Button type="primary" onClick={this.add.bind(this)}>添加目录</Button>
-                <Table
-                  style={{marginTop: 10}}
-                  size="small"
-                  columns={this.state.columns} 
-                  dataSource={this.props.data} 
-                  pagination={true}
-                />
-              </Card>
-            </Col>
-          </Row>
-        </Card>
-        {this.state.showModal && 
-          <AddAndEdit
-            hideModel={this.hideModel.bind(this)}
-            menu={this.state.record}
-          />
-        }
+            </div>
+          }
+          {this.state.showModal && 
+            <AddAndEdit
+              hideModel={this.hideModel.bind(this)}
+              menu={this.state.record}
+            />
+          }
       </div>
     );
   }

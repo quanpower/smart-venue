@@ -360,7 +360,7 @@ class BasicLayout extends React.PureComponent {
                   )
                 )
               }
-              <Redirect to="/test/test1" />
+              <Redirect to="/system/users" />
             </Switch>
             <GlobalFooter
               links={[{

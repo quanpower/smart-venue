@@ -14,8 +14,6 @@ export default class AssignMenu extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      allKeys: [],
-      checkKeys: [],
     }
   }
 
@@ -26,10 +24,6 @@ export default class AssignMenu extends PureComponent {
     this.props.dispatch({
       type: 'menus/fetchByRole',
       roleId: this.props.role.id
-    });
-    this.setState({
-      allKeys: this.props.menus.map(node => (node.id.toString())),
-      checkKeys: this.props.roleMenus.map(node => (node.id.toString())),
     });
   }
 
@@ -70,31 +64,30 @@ export default class AssignMenu extends PureComponent {
         <Row>
           <Col span={12}>
             <Card bordered={false} title='总菜单'>
-              <Tree
-                multiple={true}
-                checkable={true}
-                checkStrictly={true}
-                autoExpandParent={true}
-                // defaultExpandAll={true}
-                defaultExpandedKeys={this.state.allKeys}
-                defaultCheckedKeys={this.state.checkKeys}
-              >
-                {loop(treeData)}
-              </Tree>
+              { (this.props.menus.length > 0 && this.props.roleMenus.length > 0) &&
+                <Tree
+                  multiple={true}
+                  checkable={true}
+                  checkStrictly={true}
+                  autoExpandParent={true}
+                  defaultExpandAll={true}
+                  defaultCheckedKeys={this.props.roleMenus.map(node => (node.id.toString()))}
+                >
+                  {loop(treeData)}
+                </Tree>
+              }
             </Card>
           </Col>
-          {/* <Col span={2}>
-            <i className="anticon anticon-double-right" style={{marginTop: 200}}></i>
-          </Col> */}
           <Col span={12}>
             <Card bordered={false} title='分配的菜单'>
-              <Tree
-                // defaultExpandAll={true}
-                defaultExpandedKeys={this.state.allKeys}
-                autoExpandParent={true}
-              >
-                {loop(roleMenuData)}
-              </Tree>
+              { this.props.roleMenus.length > 0 &&
+                <Tree
+                  defaultExpandAll={true}
+                  autoExpandParent={true}
+                >
+                  {loop(roleMenuData)}
+                </Tree>
+              }
             </Card>
           </Col>
         </Row>
